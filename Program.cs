@@ -115,17 +115,61 @@ namespace OOP
             //En sade yalın property yapılanmasıdır.
             //İçerisinde get ve set metotları scopeları tanımlanmalıdır.
             //get: property'den veri istendiğinde tetiklenir. set: property'e veri gönderildiğinde tetiklenir. value keyword'ü ile yakalar.
-            //Full propertylerde get bloğu tanımlanmazsa sadece yazılabilir (write only), set bloğu tanımlanmazsa sadece okunabilir (read only) olacaktır.
+            //Full propertylerde set bloğu tanımlanmazsa get bloğu kalır ve sadece yazılabilir (read only), get bloğu tanımlanmazsa set bloğu kalır ve sadece okunabilir (write only) olacaktır.
             //Eğer Property ile field'larımı kontrollü bir şekilde dışarıya açacaksam object üzerinden bu field'lara erişilmemesi gerekmektedir. Yani encapsulation yapacaksam object üzerinden erişimin sağlanmaması gerekmektedir.
+            // [[Eğer nesne üzerinden field'lara erişim sağlayabilmek istiyorsan field'ın başına ''public'' keyword'ü eklemeliyiz.]]
+            //Property'ler hangi field'ları temsil ediyorsa ilgili field'in türü ile aynı olmak zorundadır. Property field'in türünden değer alacak.
+            //Property isimlendirmesi genellikle temsil ettiği field'ın isminin baş harfi büyük olan olarak isimlendirilir. field name: renk ise property Renk... sebebi capsulation yaptığı field'a ithafen olduğuna sirayet eder.
+            ornekModel1 om22 = new ornekModel1();
+            Console.WriteLine(om22.Aa1); //get bloğu tetiklenir okunur
+            om22.Aa1 = 1000; //set bloğu tetiklenir assing işlemi yapıldı.
 
 
             #endregion
         }
 
-        class ornekModel1
+
+    class ornekModel1
         {
-            public int aa1;  //oluşturduğum tür içerisindeki field dediğimiz alanlar burasıdır (Access Modifiers[erişim belirleyicisidir]Public keyword'ü oluşturduğumuz object'in fieldlarına erişmemizi sağlar)
+            public int aa1;  //oluşturduğum tür içerisindeki field dediğimiz alanlar burasıdır (Access Modifiers[erişim belirleyicisidir]Public keyword'ü oluşturduğumuz object'in, fieldlarına erişmemizi sağlar)
             public int bb1;  //   " "
+            public string cc1;
+
+            #region Full Property
+            //Full property'de field alanlarımız erişilebilir değildi ve public keyword'ü kullanılmaz.
+        public int Aa1
+        {
+            get
+            {
+                //Property üzerinden değer talep edildiğinde get bloğu tetiklenir. Yani değer buradan gönderilir. geri dönüş değerine sahip bir metot eğer geriye return yapmıyorsa hata verir.
+                return aa1;
+            }
+            set
+            {
+                    aa1 = value; //Gönderilen değer value keyword'ü ile yakalanır. Property'in türü ne ise ilgili türe bürünecektir.
+            }
+        }
+            #endregion
+
+            #region Prop Property
+            //Bie property her ne kadar encapsulation yapsa da temsil ettiği field'daki dataya hiç müdehale etmeden erişilmesini ve veri atamasını sağlıyorsa böyle bir durumda kullanulan property imzasıdır.
+            //Developer'lar field'daki değere müdehale yapılsın ya da yapılmasın direkt erişim yapılmasını istemeyiz.
+            //Prop property'ler compile edildiklerinde arkaplanda kendi field'larını oluştururlar. Dolayısı ile bir field tanımlamaya gerek yoktur.
+            //Prop imzalarda property read only olabilir fakat write only olamaz. Yani get bloğu olmadığında set bloğunu yalnız başına kullanamam. İkisini aynı anda kullanabilirim. set'i kullanamamamın sebebi okunabilir olmayan bir field'a nasıl atama yapabilirim ? Yapamam.
+            //Prop imzada tanımlanan 1 field için property'de kontrol yapılmadığı için gelen değeri atıyor atanan değeride sadece okuyacaktır.
+            public int Bb1 { get; set; }
+            #endregion
+
+            #region Auto Property Initializers (c# 6.0)
+            //Bir property'in ilk değerini nesne ayağa kalktığı an verebiliyoruz.
+            //Normalde oluşturulan field alanına uygun türde default değeri gelirken buna müdehale edip kontrol edebiliyoruz.
+            //Auto Property Initializers özelliği sayesinde read only olan proplara hızlıca değer atanabilmektedir.
+            public string Cc1 { get; set; } = "Ölmez";
+
+            #endregion
+
+            #region Ref Readonly Returns
+            #endregion
 
             public void X()   //oluşturduğum tür içerisindeki fonksiyondur
             {
