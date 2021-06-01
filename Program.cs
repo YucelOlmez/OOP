@@ -135,20 +135,69 @@ namespace OOP
             indXer[5] = 10;
             #endregion
 
+
+            #region Class içerisinde tanımlanan Class Sınıf Elemanı mıdır ?
+            //Class elemanları field, property, metot ve indexer'dır.
+            //Class içerisinde tanımlanan class(nested Type) eğer class member'i olsaydı classtan oluşturulan nesnenin içerisinde oluşturulan class'a bir şekilde ulaşılırdı. 
+            //Peki Class içerisinde tanımlanan class'a erişim sağlayabilmek için hangi class isminin altında tanımladıysak ilgili class'ın üzerinden erişim sağlarız.
+            #endregion
+
+            #region this Keyword'ü
+            //this keyword'ü ilgili class yapılanmasının o anki nesnesine karşılık gelir.
+            //this kullanmak zorunda değiliz.
+            //Kullanmadığımızda compiler arka planda onu otomatik kendisi oluşturup kullanıyor.
+            //Fakat aşşağıdaki durumlarda kullanmamız gerekebilir.
+
+            //Sınıfın Nesnesini Temsil Eder
+            //Sınıf içerisinde kullanılan sınıfın içerisindeki member'larda kullanılan keyword'dür. Property metot indexer ya da constructer içerisinde kullanılır.
+            //Bir classtan ürettiğimiz nesneyi eğer kendi sınıfında temsil etmek istiyorsak this keyword'ünü kullanırız.
+            //Nesne üzerinden eriştiğimiz this keyword'ü nesne modellemesi üzerinden temsil etmemizi sağlar.
+
+            ornekModel1 thisModel = new ornekModel1();
+            thisModel.XX();
+
+            //Aynı İsimde Field ile Metot Parametrelerini Ayırmak İçin Kullanılır
+            //Bazen field'a verdiğimiz isimler ile kullanmakta olduğumuz metotun parametre isimleri nadiren aynı olabiliyor. Bu durumu engellemek için ilgili metotun parametresine değilde bulunduğu class içerisindeki field ismine erişmek istediğimizde metot scopelarında (this.aa1) dememiz yeterlidir.
+            //this keyword'ü ilgili class yapılanmasının o anki nesnesine karşılık gelir.
+            //this kullanmak zorunda değiliz.
+            //Kullanmadığımızda compiler arka planda onu otomatik kendisi oluşturup kullanıyor.
+
+
+            //Bir constructer'dan Başka Bir Constructer2ı Çağırmak İçin Kullanulır
+            //Yapıcı Fonksiyonlar / Kurucu Fonksiyonlardır
+            //Devasa mimariler kurmamızı sağlar.
+            //Mimarisel bir manevra yapmamızı sağlar.
+            //Constructer konusu geldiğinde yeniden this keyword'ü kullanılacaktır.
+
+            #endregion
+
+
+
             #endregion
         }
 
-
+        /// <summary>
+        /// örnek Class'tır
+        /// </summary>
         class ornekModel1
         {
+            /// <summary>
+            /// örnek field'dır
+            /// </summary>
             public int aa1;  //oluşturduğum tür içerisindeki field dediğimiz alanlar burasıdır (Access Modifiers[erişim belirleyicisidir]Public keyword'ü oluşturduğumuz object'in, fieldlarına erişmemizi sağlar)
+            /// <summary>
+            /// örnek field'dır.
+            /// </summary>
             public int bb1;  //   " "
+            /// <summary>
+            /// örnek Field'dır.
+            /// </summary>
             public string cc1;
 
             #region Full Property
             //Full property'de field alanlarımız erişilebilir değildi ve public keyword'ü kullanılmaz.
-        public int Aa1
-        {
+          public int Aa1
+          {
             get
             {
                 //Property üzerinden değer talep edildiğinde get bloğu tetiklenir. Yani değer buradan gönderilir. geri dönüş değerine sahip bir metot eğer geriye return yapmıyorsa hata verir.
@@ -158,7 +207,7 @@ namespace OOP
             {
                     aa1 = value; //Gönderilen değer value keyword'ü ile yakalanır. Property'in türü ne ise ilgili türe bürünecektir.
             }
-        }
+          }
             #endregion
 
             #region Prop Property
@@ -226,6 +275,7 @@ namespace OOP
             //Fakat propertyler kesinlike geri dönüş türü almalıdırlar. Çünkü capsulation yaparken hangi türde yapacağini bilmek ister.
             public int XX()
             {
+                this.XX();
                 return 0;
             }
 
@@ -248,15 +298,24 @@ namespace OOP
             }
             #endregion
 
-            public void X()   //oluşturduğum tür içerisindeki fonksiyondur
-            {
+            /// <summary>
+            /// örnek metottur
+            /// </summary>
+              public void X()   //oluşturduğum tür içerisindeki fonksiyondur
+              {
                 Console.WriteLine(aa1 + " " + bb1);
-            }
-            public int Y()
-            {
+              }
+            /// <summary>
+            /// örnek metottur.
+            /// </summary>
+            /// <param name="AAA">AAA parametresidir</param>
+            /// <returns>aa1*bb1</returns>
+              public int Y(int AAA)
+              {
+                
 
                 return aa1 * bb1;
-            }
+              }
         }
     }
 }
