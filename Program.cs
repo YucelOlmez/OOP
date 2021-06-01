@@ -23,7 +23,7 @@ namespace OOP
             //OOP'ta en küçük esas parça object(nesne)dir.
             //nesneler içerisinde veri tutabilecekleri alanlar barındırır. Bu alanlara 'field' denir. Bu alanların sınırı yoktur. Tabi ki bellek dolana kadar...
             //Object içerisinde ilgili field'ların içerisindeki verileri işleyebilmek için function'lar vardır. Bu object'in kendisine ait içerisinde ekosistem barındırdığını söylememize sebeptir. İleride bu function'lara method, property indexer diyeceğiz. Bu field'lardaki verileri lazım olduğunda alıp işleyebileceğiz.
-            //OOP destekleyen dillerde nesneyi oluşturabilmek için modellemek gerekmektedir. Nesneler esasında bire sınıf modellemesidir. Yani sınıf oluşturmamız gerekmektedir. object=class / object (nesne) class(sınıf)'ın ürünüdür.
+            //OOP destekleyen dillerde nesneyi oluşturabilmek için modellemek gerekmektedir. Nesneler esasında birer sınıf modellemesidir. Yani sınıf oluşturmamız gerekmektedir. object=class / object (nesne) class(sınıf)'ın ürünüdür.
             //Nesne Kavramı 
             //Nesne nesnellik felsefesine dayanan bir kavramdır. Kainattaki her şeyi nesne olarak görmek ve nesne olarak yorumlamak fikrine dayanır.
             //Nesne gerçek hayatta elle tutulur ve gözle görülebilir olduğu için dolayısı ile programlamada nesne günlük hayattaki nesnelerin muadilidir.
@@ -31,7 +31,7 @@ namespace OOP
             //Nesne Modellemesi
             //Nesnelerin oluşturulabilmesi için modellenmesi gerekmektedir.
             //Nesne modeli class ile gerçekleştirilir.
-            //Örneğin araba modelleyeceksem öncelikle araba class'ı oluşturmalıyım. Daha sonra gerçek hayattaki araba ile simüle edip modellediğim araba arasındaki bütün ortak noktaları tanımlayıp ortaya bir nesne çıkartıyorum. Sonrasında ihtiyacım doğrultusunda yeni bir araba nesnesi üretim ona değer atayabiliyorum.
+            //Örneğin araba modelleyeceksem öncelikle araba class'ı oluşturmalıyım. Daha sonra gerçek hayattaki araba ile simüle edip modellediğim araba arasındaki bütün ortak noktaları tanımlayıp ortaya bir nesne çıkartıyorum. Sonrasında ihtiyacım doğrultusunda yeni bir araba nesnesi üretip ona değer atayabiliyorum.
             //Nesneler referans türlü değişkenler kategorisine girmektedir. Nesneleri tutan değişkenler referans türlü değişkenlerdir. 
             //Nesne içerisinde bir ve yada birden fazla veri tutan değerler bütünüdür. Nesnelerin içerisindeki değerler/veriler yani field Heap'te tutulur. Aslen ilgili değerlerin bazıları değer türlü değişken olsa da değerin bağlı olduğu kavram object'i ilgilendirdiği için ilgili değer Heap'te tutulur.
             //NŞA biz developer'lar heap'te direkt erişimimiz yoktur, stack'a vardır. Bu doğrultuda stack üzerinden heap'e ulaşırız. Bu ulaşıma referans diyoruz. class'ta ürettiğimiz nesnenin pointeri(işaretçisi) stackte bulunur fakat ilgili nesnenin değerleri field içerisindeki değerler heap'te tutulur. örneğin carVolvo; nesnesini tek başına çağırdığımda stack'ten kendisi gelir ama carVolvo.Color dediğimde heap'teki değerine erişirim ve oraya değer atayabilirim.
@@ -73,7 +73,7 @@ namespace OOP
             //Bir class tanımlandığında o class adı bir türdür. Haliyle o türü kullanabilmek için direkt olarak class adını kullanmamız yeterlidir.
             //Oluşturduğumuz türün değişken türü gibi kullanabilmemin altında yatan sebep referans türlü değişken olmasından kaynaklanmaktadır.
 
-            ornekModel1 model; //Null'dur  //oluşturduğum türden bir değişken tanımladım vu bu değişken olarak değiş referans noktası olarak isimlendireceğim.
+            ornekModel1 model; //Null'dur  //oluşturduğum türden bir değişken tanımladım ve bu değişken olarak değiş referans noktası olarak isimlendireceğim.
                                //Eğerki bir referans noktasında herhangi bir nesne referans edilmiyorsa o referans null değere sahiptir. Heapte bir nesneyi işaretlemiyorsa null'dur.
 
             //Class Members
@@ -124,12 +124,22 @@ namespace OOP
             Console.WriteLine(om22.Aa1); //get bloğu tetiklenir okunur
             om22.Aa1 = 1000; //set bloğu tetiklenir assing işlemi yapıldı.
 
+            #region Metot
+            ornekModel1 metotModel =new ornekModel1(); //Metot region2ı için oluşturulan nesnedir.
+            metotModel.XX();   //Metot region'indaki oluşturduğum metottur.
+            metotModel.Cc1 = "Yücel";  //Property'ler ingiliz anahtarı ile gösterilir.
+            #endregion
+
+            #region Indexer
+            ornekModel1 indXer = new ornekModel1();
+            indXer[5] = 10;
+            #endregion
 
             #endregion
         }
 
 
-    class ornekModel1
+        class ornekModel1
         {
             public int aa1;  //oluşturduğum tür içerisindeki field dediğimiz alanlar burasıdır (Access Modifiers[erişim belirleyicisidir]Public keyword'ü oluşturduğumuz object'in, fieldlarına erişmemizi sağlar)
             public int bb1;  //   " "
@@ -169,6 +179,73 @@ namespace OOP
             #endregion
 
             #region Ref Readonly Returns
+            //İleride daha detaylı işleyeceğiz
+            //Property tanımlamalarında nadirende olsa bu syntax görülebilyor.
+            //Class'tan nesne oluşturdukça arka planda oluşturduğumuz nesne sayısının içindeki propertyler kadar field alanı RAM'de ayrılıyor. Bu maliyetli bir durumdur. Bunun yerine ilgili field'in referansını döndürmek ve sadece okunabilir olması amacıyla Ref Readonly Returns oluşturulmuştur.
+            string adi = "Kallavi";
+            public ref readonly string Adi => ref adi; //Burası  ornekModel1 Class'ı içerisinde olup bu class üzerinden Adi property'si üzerinden "Kallavi" değerine değil, bu değerin tutulduğu field'a erişeceğim. Yani "adi" field'ina erişmiş oluyorum.
+                                                       //DETAYLI OLARAK ÖĞRENİLECEKTİR.
+
+            #endregion
+
+            #region Computed Property (Hesaplanmış)
+            //İçerisinde türetilmiş bir bağıntı yaşıyan property'lerdir.
+            //Capsulation yaaparken tek bir field üzerine değil de bu field'lar üzerinden bir bağıntı yaparak capsulation yapıyor.
+            int comP = 5;
+            int comP1 = 123;
+            public int Topla //Hepsaplama yapan propertydir. Her toplayı çağırıdğıumda comP ile comP1 toplamını geriye döndürür.
+            {
+                get
+                {
+                    return comP + comP1;  
+                }
+            }
+            #endregion
+
+            #region Expression-Bodied Property 
+            //Tanımlanan property'lerde lambda expression kullanmamızı sağlayan sözdizimidir.
+            //Sadece read only olan property'lerde kullanılır.
+            //Sadece değer döndürecekse bu şekilde kullanım uygun olacaktır.
+            //Auto Property Initializers ile akrabadır. İkisinde de ilk değeri alırlar.
+            public string soyIsım => "Ölmez";
+            #endregion
+
+            #region Init-Only Properties [Init Accessor c#9.0]
+            //Nesnenin ilk yaratılış anında property'lerine değer atamaktadır.
+            //Ayrı bir başlık altında değerlendirilmesi gereken bir yapıdır. 
+            //Auto Property Initializers İle yapılabiliyor. Fakat fark vardır.
+            //run time'da değeri değişmemesi gereken nesneler için bir önlem alınmaktadır.
+            //Developer açısından gelişim süreç esnasında değiştirilmemesi gereken değerlerin ''yanlışlıkla'' değiştirilmesinin önüne geçmekte ve olası hata [bug]'lardan yazılımı arındırmaktadır.
+            //property'de {get; init;} = "Victor Hugo" şeklinde kullanımı vardır. property'e verilen ilk değerler atandıktan sonra init tarafından bu alan kitlenir ve değer koruma altına alınır. Değiştirilmesi halinde hata verir, altı kırmızı çizer.
+            // bu özelliği kullanabilmek için init keyword'ü kullanılacak ve nasıl kullanacağı zamanı geldiğinde öğrenilecektir.
+            #endregion
+
+            #region Metot
+            //Nesne üzerinde field'lardaki değerler de ya da dışarıdan parametreler ile gelen değerler üzerinde işlemler yapmamızı sağlayan temel programatik parçalardır.
+            //metotlar geri dönüş türü alma zorunda değildir. Fakat alabilirler
+            //Fakat propertyler kesinlike geri dönüş türü almalıdırlar. Çünkü capsulation yaparken hangi türde yapacağini bilmek ister.
+            public int XX()
+            {
+                return 0;
+            }
+
+
+            #endregion
+
+            #region Indexer
+            //bir class'ın nesnesine indexer özelliği kazandırmak istiyorsam 'this []' keyword'ü ile oluşturulur.
+            //Nesneye indexer özelliği kazandıran yapısal olarak property ile birebire aynı olan yapıdır.
+            public int this[int a]
+            {
+                get
+                {
+                    return a;
+                }
+                set 
+                {
+                   a=value;
+                }
+            }
             #endregion
 
             public void X()   //oluşturduğum tür içerisindeki fonksiyondur
